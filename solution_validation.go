@@ -32,10 +32,10 @@ func (g *Grid) isColumnValid(colNumber int) bool {
 	return true
 }
 
-func (g *Grid) isLeftToTopDiagonalValid(rowNumber int) bool {
+func (g *Grid) isUpwardsDiagonalValid(startingX int, startingY int) bool {
 	countersOnDiagonal := 0
 
-	for row, col := rowNumber, 0; row >= 0 && row < 8 && col >= 0 && col < 8; row, col = row-1, col+1 {
+	for col, row := startingX, startingY; row >= 0 && row < 8 && col >= 0 && col < 8; row, col = row-1, col+1 {
 		if g.Tiles[col][row] == true {
 			countersOnDiagonal++
 
@@ -48,11 +48,11 @@ func (g *Grid) isLeftToTopDiagonalValid(rowNumber int) bool {
 	return true
 }
 
-func (g *Grid) isLeftToBottomDiagonalValid(rowNumber int) bool {
+func (g *Grid) isDownwardsDiagonalValid(startingX int, startingY int) bool {
 
 	countersOnDiagonal := 0
 
-	for row, col := rowNumber, 0; row >= 0 && row < 8 && col >= 0 && col < 8; row, col = row+1, col+1 {
+	for col, row := startingX, startingY; row >= 0 && row < 8 && col >= 0 && col < 8; row, col = row+1, col+1 {
 
 		if g.Tiles[col][row] == true {
 			countersOnDiagonal++
@@ -60,6 +60,36 @@ func (g *Grid) isLeftToBottomDiagonalValid(rowNumber int) bool {
 			if countersOnDiagonal > 1 {
 				return false
 			}
+		}
+	}
+
+	return true
+}
+
+func (g *Grid) IsValidSolution() bool {
+	for i := 0; i < 8; i++ {
+		if g.isRowValid(i) == false {
+			return false
+		}
+
+		if g.isColumnValid(i) == false {
+			return false
+		}
+        
+        if g.isUpwardsDiagonalValid(0, i) == false {
+            return false
+        }
+        
+        if g.isUpwardsDiagonalValid(i, 7) == false {
+            return false
+        }
+        
+        if g.isDownwardsDiagonalValid(0, i) == false {
+			return false
+		}
+        
+        if g.isDownwardsDiagonalValid(i, 0) == false {
+			return false
 		}
 	}
 

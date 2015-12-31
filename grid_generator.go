@@ -9,8 +9,8 @@ func NewGrid() *Grid {
 
 func GenerateAllPossibleGrids() []*Grid {
 	fmt.Println("Generating all possible grids")
-    
-    grids := make([]*Grid, 0)
+
+	grids := make([]*Grid, 0)
 
 	for i0 := 0; i0 < 8; i0++ {
 		for i1 := 0; i1 < 8; i1++ {
@@ -29,12 +29,12 @@ func GenerateAllPossibleGrids() []*Grid {
 									grid.PlaceCounterAt(5, i5)
 									grid.PlaceCounterAt(6, i6)
 									grid.PlaceCounterAt(7, i7)
-                                    
-                                    grids = append(grids, grid)
-                                    
-                                    if len(grids)% 100000 == 0 {
-                                        fmt.Println("Grids generated:", len(grids))
-                                    }
+
+									grids = append(grids, grid)
+
+									if len(grids)%100000 == 0 {
+										fmt.Println("Grids generated:", len(grids))
+									}
 								}
 							}
 						}
@@ -43,6 +43,6 @@ func GenerateAllPossibleGrids() []*Grid {
 			}
 		}
 	}
-    
-    return grids
+
+	return grids
 }

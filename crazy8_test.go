@@ -29,7 +29,7 @@ func Test_grid_with_two_counters_on_same_column_is_invalid_solution(t *testing.T
 	}
 }
 
-func Test_grid_with_two_counters_on_same_left_to_top_diagonal_is_invalid_solution(t *testing.T) {
+func Test_grid_with_two_counters_on_same_upwards_diagonal_is_invalid_solution(t *testing.T) {
 
 	g := NewGrid()
 
@@ -41,12 +41,36 @@ func Test_grid_with_two_counters_on_same_left_to_top_diagonal_is_invalid_solutio
 	}
 }
 
-func Test_grid_with_two_counters_on_same_left_to_bottom_diagonal_is_invalid_solution(t *testing.T) {
+func Test_grid_with_two_counters_on_same_upwards_diagonal_is_invalid_solution_2(t *testing.T) {
+
+	g := NewGrid()
+
+	g.PlaceCounterAt(7, 1)
+	g.PlaceCounterAt(6, 2)
+
+	if g.IsValidSolution() == true {
+		t.Fatal("Expected IsValidSolution false got true")
+	}
+}
+
+func Test_grid_with_two_counters_on_same_downwards_diagonal_is_invalid_solution(t *testing.T) {
 
 	g := NewGrid()
 
 	g.PlaceCounterAt(0, 4)
 	g.PlaceCounterAt(2, 6)
+
+	if g.IsValidSolution() == true {
+		t.Fatal("Expected IsValidSolution false got true")
+	}
+}
+
+func Test_grid_with_two_counters_on_same_downwards_diagonal_is_invalid_solution_2(t *testing.T) {
+
+	g := NewGrid()
+    
+    g.PlaceCounterAt(5, 2)
+	g.PlaceCounterAt(7, 4)
 
 	if g.IsValidSolution() == true {
 		t.Fatal("Expected IsValidSolution false got true")

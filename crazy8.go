@@ -12,28 +12,6 @@ func (g *Grid) PlaceCounterAt(x int, y int) {
 	g.Tiles[x][y] = true
 }
 
-func (g *Grid) IsValidSolution() bool {
-	for i := 0; i < 8; i++ {
-		if g.isRowValid(i) == false {
-			return false
-		}
-
-		if g.isColumnValid(i) == false {
-			return false
-		}
-
-		if g.isLeftToTopDiagonalValid(i) == false {
-			return false
-		}
-
-		if g.isLeftToBottomDiagonalValid(i) == false {
-			return false
-		}
-	}
-
-	return true
-}
-
 func (g *Grid) Print() {
 	for row := 0; row < 8; row++ {
 		fmt.Println()
@@ -75,9 +53,9 @@ func main() {
 		}
 	}
 
-    fmt.Println("Displaying solutions")
-    fmt.Println()
-    
+	fmt.Println("Displaying solutions")
+	fmt.Println()
+
 	for i, solution := range solutions {
 		fmt.Println("Solution", i)
 		solution.Print()
