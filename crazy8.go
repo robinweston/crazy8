@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"math/rand"
 )
 
 type Grid struct {
@@ -37,68 +36,50 @@ func (g *Grid) IsValidSolution() bool {
 
 func (g *Grid) Print() {
 	for row := 0; row < 8; row++ {
-        fmt.Println()
-        fmt.Print("[")
-        
-        for col := 0; col < 8; col++ {
-            if g.Tiles[col][row] == true {
-                fmt.Print(1)
-            } else {
-                fmt.Print(0)
-            }
-            
-            if col < 7 {
-                fmt.Print(" ")
-            }
-        }
-        
-        fmt.Print("]\r")
-    }
-    
-    fmt.Println()
-}
+		fmt.Println()
+		fmt.Print("[")
 
-func (g *Grid) findFreeSpace() (int, int) {
-	for {
-		x := rand.Intn(8)
-		y := rand.Intn(8)
+		for col := 0; col < 8; col++ {
+			if g.Tiles[col][row] == true {
+				fmt.Print(1)
+			} else {
+				fmt.Print(0)
+			}
 
-		if g.Tiles[x][y] == false {
-			return x, y
+			if col < 7 {
+				fmt.Print(" ")
+			}
 		}
-	}
-}
 
-func (g *Grid) PlaceCountersRandomly() {
-	for i := 0; i < 8; i++ {
-		x, y := g.findFreeSpace()
-		g.PlaceCounterAt(x, y)
+		fmt.Print("]\r")
 	}
-}
 
-func NewGrid() *Grid {
-	g := Grid{}
-	return &g
+	fmt.Println()
+	fmt.Println()
 }
 
 func main() {
-	// todo: multiple solutions. What if the same just rotated?
-	var solutionsAttempted int64 = 0
 
-	for {
-		grid := NewGrid()
-		grid.PlaceCountersRandomly()
+	solutions := make([]*Grid, 0)
+	allGrids := GenerateAllPossibleGrids()
+
+	for gridNumber, grid := range allGrids {
 
 		if grid.IsValidSolution() == true {
+			solutions = append(solutions, grid)
 			fmt.Println("Solution found!!")
-			grid.Print()
-			return
 		}
 
-		solutionsAttempted++
-
-		if solutionsAttempted%100000 == 0 {
-			fmt.Println("Solutions attempted: ", solutionsAttempted)
+		if gridNumber%100000 == 0 {
+			fmt.Println("Solutions attempted: ", gridNumber)
 		}
+	}
+
+    fmt.Println("Displaying solutions")
+    fmt.Println()
+    
+	for i, solution := range solutions {
+		fmt.Println("Solution", i)
+		solution.Print()
 	}
 }
